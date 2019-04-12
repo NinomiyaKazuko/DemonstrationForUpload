@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	    <script>
+    	function getNum(){
+		var chars = ['0','1','2','3','4','5','6','7','8','9'];
+		var nums="taskID:";
+		for(var i=0;i<16;i++){
+			var id = parseInt(Math.random()*10);
+			nums+=chars[id];
+		}
+		return nums;
+		}
+      function mysubmit() {
+        var a = document.getElementById("textfield").value;
+        if(a == "") {
+          alert("Please upload the file.");
+          return;
+        }
+        document.form1.submit();
+        ajaxsend();
+      }
+      function ajaxsend() {
+        var xmlHttp;
+        if(window.ActiveXObject) {
+          xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } else {
+          xmlHttp = new XMLHttpRequest();
+        }
+        xmlHttp.open("post", "upload", true);
+        xmlHttp.onreadystatechange = function() {
+          xmlHttp.readyState;
+          if(xmlHttp.readyState == 4) {
+            res.innerHTML = "Upload succeed！";
+            setTimeout(function() {
+              res.innerHTML = "";
+            }, 2000);
+          } else {
+            document.getElementById("res").style.display = "inline";
+          }
+        }
+        xmlHttp.send();
+        var obj = document.getElementById('textfield');
+        obj.outerHTML = obj.outerHTML;
+      }
+    </script>
+	</head>
+	<body>
+	<div id="txt">
+		<div id="num">random number</div>
+	</div>
+	<script>
+		document.getElementById("num").innerHTML=getNum();
+	</script>
+		<div id="container" >
+			<iframe id="t_load" name="t_load" style="display: none"></iframe>
+			<form action="" method="post" enctype="multipart/form-data" name="form1" target="t_load">
+        <input type='text' placeholder="No file chosen" name='textfield' id='textfield' style="height:22px; border:2px solid #cdcdcd; width:230px; border-radius:50px;" />
+        <input id="ChooseFile" type='button' value='choose file' style="display: inline-block; margin-bottom: 0; font-size: 14px; border-radius: 4px; padding: 6px 12px; margin: 2px 2px; border: 1px solid #357ebd; background: #1b9ad5; color: #fff;" />
+        <input type="file" name="file1" accept="image/jpeg, image/gif" id="file1" onchange="document.getElementById('textfield').value=this.value" style="position:absolute; top:5px; right:74px; height:27px; filter:alpha(opacity:0);opacity: 0;width:300px" />
+        <input id="submit"type="button" name="button" onclick="mysubmit()" value="submit" style="display: inline-block;
+ margin-bottom: 0;
+ font-size: 14px;
+ border-radius: 4px;
+padding: 6px 12px;
+ margin: 2px 2px;
+ border: 1px solid #357ebd;
+ background: #1b9ad5;
+ color: #fff;">
+      </form>
+    </div>
+    <script>
+    	var add = document.getElementById('ChooseFile');
+		var container =document.getElementById('container');
+		var node=container.nextSibling;
+		add.onclick = function(){
+			
+		aDiv = document.createElement('div');
+		aDiv.innerHTML = "<div id='container' style='position:relative;width:450px;'></div>";
+		container.parentNode.insertBefore(aDiv, node)
+		node=aDiv.nextSibling;
+		
+		aText = document.createElement('text');
+		aText.innerHTML = "<input type='text' placeholder='No file chosen' name='textfield' id='textfield' style='height:22px; border:2px solid #cdcdcd; width:230px; border-radius:50px;' />";
+		container.parentNode.insertBefore(aText, node)
+		node=aText.nextSibling;
+		
+		aButton = document.createElement('button');
+		aButton.innerHTML = "<input id='ChooseFile' type='button' value='choose file' style='display: inline-block; margin-bottom: 0; font-size: 14px; border-radius: 4px; padding: 6px 12px; margin: 2px 2px; border: 1px solid #357ebd; background: #1b9ad5; color: #fff;' />";
+		container.parentNode.insertBefore(aButton, node)
+		node=aButton.nextSibling;
+		
+		aFile = document.createElement('file');
+		aFile.innerHTML = "<input type='file' name='file1' accept='image/jpeg, image/gif' id='file1' onchange='document.getElementById('textfield').value=this.value' style='position:absolute; top:5px; right:74px; height:27px; filter:alpha(opacity:0);opacity: 0;width:300px' />";
+		container.parentNode.insertBefore(aFile, node)
+		node=aFile.nextSibling;
+
+		bButton = document.createElement('button');
+		bButton.innerHTML = "<input id='submit'type='button' name='button' onclick='mysubmit()' value='submit' style='display: inline-block;margin-bottom: 0;font-size: 14px;border-radius: 4px;padding: 6px 12px;margin: 2px 2px;border: 1px solid #357ebd;background: #1b9ad5;color: #fff;'>";
+		container.parentNode.insertBefore(bButton, node)
+		node=bButton.nextSibling;
+		
+		}
+		function test(test){
+		test.parentNode.parentNode.removeChild(test.parentNode);
+		}
+    </script>
+	</body>
+</html>
